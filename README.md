@@ -3,7 +3,7 @@
 This example includes:
 
 **bloom** package:
-- implementation of _[bloom filter](https://github.com/alexgaas/broom/blob/main/bloom/README.md)_ - space-efficient probabilistic data structure for set membership testing
+- implementation of **[bloom filter](https://github.com/alexgaas/broom/blob/main/bloom/README.md)** - space-efficient probabilistic data structure for set membership testing
 
 **bloom_example** consists of:
 - **[cache](https://github.com/alexgaas/broom/blob/main/bloom_example/cache/README.md)** - backend service (built with _gin-gonic_) for bloom filter cache (built also as docker image)

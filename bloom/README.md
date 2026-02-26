@@ -35,7 +35,6 @@ if !bf.HasString("unknown") {
 #### Pros:
 
 - Production-ready and easily injectable to any Go service
-- Thread-safe wrapper available in `bch` package
 - Optimal bit count and hash count calculated automatically based on expected elements and error rate
 
 #### Cons:
