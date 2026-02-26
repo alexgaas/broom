@@ -34,7 +34,7 @@ if !bf.HasString("unknown") {
 
 #### Pros:
 
-- Simple (~400 lines of code), production-ready and easily injectable to any Go service
+- Production-ready and easily injectable to any Go service
 - Thread-safe wrapper available in `bch` package
 - Optimal bit count and hash count calculated automatically based on expected elements and error rate
 
@@ -42,6 +42,6 @@ if !bf.HasString("unknown") {
 
 - May return false positives (by design) - reports element "possibly present" when it's not
 - Cannot delete elements from the filter
-- Once created, capacity cannot be changed
+- Once created, capacity cannot be changed, so initial size of cache must be chosen wisely
 
 
