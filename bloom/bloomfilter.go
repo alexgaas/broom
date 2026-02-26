@@ -97,7 +97,7 @@ func newWithParams(hashCount, bitCount uint64) (*BloomFilter, error) {
 	return bf, nil
 }
 
-// Random seeds for hash generation (from original C++ implementation)
+// Random seeds for hash generation
 var randomSeeds = []uint64{
 	0x4b7db4c869874dd1,
 	0x43e9b39115fd33ba,

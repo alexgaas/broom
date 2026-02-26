@@ -66,7 +66,6 @@ func writerHandler(ctx context.Context, request Request) (client.Response, error
 func main() {
 	log.SetOutput(os.Stdout)
 
-	// Make the handler available for Remote Procedure Call by AWS Lambda
 	lambda.Start(writerHandler)
 }
 
