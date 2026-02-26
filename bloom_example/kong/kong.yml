@@ -1,0 +1,19 @@
+_format_version: "3.0"
+_transform: true
+
+services:
+  - name: cache-service
+    url: http://cache:8080
+    routes:
+      - name: cache-route
+        paths:
+          - /cache
+        strip_path: true
+
+  - name: writer-lambda-service
+    url: http://writer_lambda:8080
+    routes:
+      - name: writer-route
+        paths:
+          - /writer
+        strip_path: true

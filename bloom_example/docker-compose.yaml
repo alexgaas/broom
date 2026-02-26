@@ -1,0 +1,73 @@
+name: bloom-cache
+services:
+  # bloom cache server
+  cache:
+    build:
+      context: ..
+      dockerfile: bloom_example/cache/Dockerfile
+    container_name: cache
+    ports:
+      - "8080:8080"
+    networks:
+      - bloom-cache
+
+  # bloom cache writer client
+  writer_lambda:
+    environment:
+      DRY_RUN: "false"
+      CACHE_HOST: "http://cache:8080"
+    build:
+      context: writer_lambda
+    container_name: writer_lambda
+    ports:
+      - "9000:8080"
+    networks:
+      - bloom-cache
+
+  # client api gateway
+  kong:
+    image: kong:latest
+    container_name: kong
+    ports:
+      - "8000:8000"
+    environment:
+      KONG_DATABASE: off
+      KONG_DECLARATIVE_CONFIG: /usr/local/kong/declarative/kong.yml
+    volumes:
+      - ./kong:/usr/local/kong/declarative
+    networks:
+      - bloom-cache
+
+  # server metrics
+  prometheus:
+    image: prom/prometheus
+    container_name: cache_metrics
+    volumes:
+      - "./prom/prometheus.yml:/etc/prometheus/prometheus.yml"
+    networks:
+      - bloom-cache
+    ports:
+      - "9090:9090"
+
+  # grafana dashboards
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+    networks:
+      - bloom-cache
+    depends_on:
+      - prometheus
+
+networks:
+  bloom-cache:
