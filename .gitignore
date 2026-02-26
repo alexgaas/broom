@@ -1,5 +1,5 @@
 .DS_Store
 .idea/
 
-cache
-cache.pid
+/cache/cache
+/cache/cache.pid
